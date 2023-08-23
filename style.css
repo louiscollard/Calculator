@@ -1,0 +1,68 @@
+* {
+	margin: 0px;
+	padding: 0px;
+	box-sizing: border-box;
+}
+
+body {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-family: "Neue Montreal";
+	font-size: 30px;
+	height: 100vh;
+	background: linear-gradient(#f29077, #9d5dd2);
+}
+
+.calculator {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	grid-template-rows: 1.5fr 1fr 1fr 1fr 1fr 1fr;
+	gap: 0px 0px;
+	grid-template-areas:
+		"ct0 ct0 ct0 ct0"
+		"ct1 ct2 ct3 ct4"
+		"ct5 ct6 ct7 ct8"
+		"ct9 ct10 ct11 ct12"
+		"ct13 ct14 ct15 ct16"
+		"ct17 ct18 ct19 ct19";
+	height: 560px;
+	width: 390px;
+	border: 1px solid rgb(146, 145, 145);
+}
+
+.ct {
+	opacity: 0.8;
+	transition: 0.3s;
+}
+
+.ct:hover {
+	opacity: 2;
+}
+
+.display {
+	background: #212121;
+	grid-area: ct0;
+	text-align: end;
+	padding: 20px;
+	font-size: 50px;
+	overflow: hidden;
+}
+
+.ct4,
+.ct8,
+.ct12,
+.ct16 {
+	background: #8d52de;
+}
+
+.ct19 {
+	background: #e62f89;
+	grid-area: ct19;
+}
+
+button {
+	color: white;
+	background-color: #5b6a7e;
+	border: 0.1px solid rgb(146, 145, 145);
+}
