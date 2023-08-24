@@ -6,7 +6,7 @@ const display = document.querySelector(".display");
 const numbersButtons = document.querySelectorAll(".number");
 const operatorsButtons = document.querySelectorAll(".operator");
 const clearButton = document.querySelector(".clear");
-const egalButton = document.querySelector(".egal");
+const equalButton = document.querySelector(".egal");
 const changeOperatorButton = document.querySelector(".changeoperator");
 const decimalButton = document.querySelector(".decimal");
 const pourcentButton = document.querySelector(".pourcent");
@@ -93,7 +93,7 @@ decimalButton.addEventListener("click", () => {
 	}
 });
 
-egalButton.addEventListener("click", (e) => {
+equalButton.addEventListener("click", (e) => {
 	if (firstNumber !== "" && operator !== "" && secondNumber !== "") {
 		let result = operate(firstNumber, operator, secondNumber);
 		console.log(result);
