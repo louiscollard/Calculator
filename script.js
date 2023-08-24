@@ -8,9 +8,41 @@ const operatorsButtons = document.querySelectorAll(".operator");
 const clearButton = document.querySelector(".clear");
 const egalButton = document.querySelector(".egal");
 const changeOperatorButton = document.querySelector(".changeoperator");
-// const pourcentButton = document.querySelector(".pourcent");
+const decimalButton = document.querySelector(".decimal");
+const pourcentButton = document.querySelector(".pourcent");
 
 display.textContent = "0";
+
+document.addEventListener("keydown", (event) => {
+	const key = event.key;
+
+	if (!isNaN(key) || key === ".") {
+		if (operator === "") {
+			firstNumber += key;
+			display.textContent = firstNumber;
+		} else {
+			secondNumber += key;
+			display.textContent = secondNumber;
+		}
+	} else if (key === "+" || key === "-" || key === "*" || key === "/") {
+		operator = key;
+	} else if (key === "Enter") {
+		// Perform calculation when Enter key is pressed
+		if (firstNumber !== "" && operator !== "" && secondNumber !== "") {
+			const result = operate(firstNumber, operator, secondNumber);
+			display.textContent = result;
+			firstNumber = result.toString();
+			operator = "";
+			secondNumber = "";
+		}
+		event.preventDefault();
+	}
+
+	// Prevent default action for certain keys
+	if (["+", "-", "*", "/", "Enter", "Backspace"].includes(key)) {
+		event.preventDefault();
+	}
+});
 
 numbersButtons.forEach((button) => {
 	button.addEventListener("click", (e) => {
@@ -47,6 +79,20 @@ changeOperatorButton.addEventListener("click", () => {
 	}
 });
 
+decimalButton.addEventListener("click", () => {
+	if (operator === "") {
+		if (!firstNumber.includes(".")) {
+			firstNumber += ".";
+			display.textContent = firstNumber;
+		}
+	} else {
+		if (!secondNumber.includes(".")) {
+			secondNumber += ".";
+			display.textContent = secondNumber;
+		}
+	}
+});
+
 egalButton.addEventListener("click", (e) => {
 	if (firstNumber !== "" && operator !== "" && secondNumber !== "") {
 		let result = operate(firstNumber, operator, secondNumber);
@@ -70,31 +116,31 @@ const operate = (firstNumber, operator, secondNumber) => {
 			return subtract(firstNumber, secondNumber);
 			break;
 		case "/":
-			return divise(firstNumber, secondNumber);
+			return divide(firstNumber, secondNumber);
 			break;
 		case "x":
 			return multiply(firstNumber, secondNumber);
 			break;
 		case "%":
-			return multiply(firstNumber, secondNumber);
+			return pourcent(firstNumber, secondNumber);
 			break;
 		default:
 			return "Error: Invalid operator";
 	}
 };
 
-const add = (a, b) => a + b;
-const subtract = (a, b) => a - b;
-const divise = (a, b) => a / b;
+const add = (a, b) => (a + b).toFixed(2);
+const subtract = (a, b) => (a - b).toFixed(2);
+const divide = (a, b) => (a / b).toFixed(2);
 const multiply = (a, b) => {
 	if (b === 0) {
 		// Display error message and prevent division by zero
 		return "Error: Cannot divide by zero";
 	}
 
-	return a * b;
+	return (a * b).toFixed(2);
 };
 
 const pourcent = (a, b) => {
-	return (a * b) / 100;
+	return ((a * b) / 100).toFixed(2);
 };
